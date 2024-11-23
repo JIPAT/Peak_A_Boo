@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Score : MonoBehaviour
 {
     DiceRoll dice;
-    [SerializeField] Text scoreText;
+    [SerializeField] TextMeshProUGUI scoreText;
 
     private void Awake()
     {

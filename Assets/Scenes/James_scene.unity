@@ -3644,7 +3644,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863643755}
   serializedVersion: 4
-  m_Mass: 3
+  m_Mass: 4
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3783,8 +3783,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 088f70adc36bb7b48a86178587b1a3cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRandomForceValue: 3000
-  startRollingForce: 2000
+  maxRandomForceValue: 1500
+  startRollingForce: 1500
   diceFaceNum: 0
 --- !u!1001 &1876769929
 PrefabInstance:
@@ -4577,7 +4577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0508ded877f17244aba0ea3002216732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 73644393}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
