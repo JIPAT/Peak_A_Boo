@@ -193,18 +193,5 @@ public class PlayerTurn : MonoBehaviour
             // ทำสิ่งที่ต้องการเมื่อเทิร์นไม่ทำงาน
         }
     }
-    // private void Update()
-    // {
-    //     // ตรวจสอบว่าเทิร์นกำลังทำงานอยู่หรือไม่
-    //     if (isTurnActive)
-    //     {
-    //         Debug.Log("Player's turn is active.");
-    //         // ทำสิ่งที่ต้องการเมื่อเทิร์นกำลังทำงาน
-    //     }
-    //     else
-    //     {
-    //         Debug.Log("Player's turn is inactive.");
-    //         // ทำสิ่งที่ต้องการเมื่อเทิร์นไม่ทำงาน
-    //     }
-    // }
+
 }
