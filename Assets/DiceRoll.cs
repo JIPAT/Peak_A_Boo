@@ -18,7 +18,6 @@ public class DiceRoll : MonoBehaviour
     {
         if (body != null)
         {
-            Debug.Log("ควย");
             if (Input.GetMouseButtonDown(0)&& PlayTurn.currentPlayer.y == 2)
             {
                 RollDice();

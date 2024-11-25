@@ -49,12 +49,10 @@ public class FaceDetector : MonoBehaviour
                     Debug.Log($"Now it's {PlayTurn.currentPlayer.name}'s turn.");
                     PlayTurn.currentPlayer.x = 1;
                     PlayTurn.currentPlayer.y = 0;
-                    Debug.Log(PlayTurn.currentPlayer.y);
                     PlayTurn.isDiceRolling = false;
                 }
                 if (PlayTurn.currentPlayer.x == 0 && PlayTurn.currentPlayer.y != 2)
                 {
-                    Debug.Log("“““““““““““““““““““““““““““");
                     StartCoroutine(PlayTurn.PlayTurn()); // ‡√‘Ë¡µÈπ‡∑‘√Ïπ„À¡Ë
                     PlayTurn.currentPlayer.x = 1;
                 }
