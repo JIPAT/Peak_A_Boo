@@ -8,10 +8,12 @@ public class FaceDetector : MonoBehaviour
 {
     DiceRoll dice;
     Playermovement1 playermovement1;
+    TurnManager PlayTurn;
     private void Awake()
     {
         dice = FindObjectOfType<DiceRoll>();
         playermovement1 = FindObjectOfType<Playermovement1>();
+        PlayTurn = FindObjectOfType<TurnManager>();
     }
     private void OnTriggerStay(Collider other)
     {
@@ -22,8 +24,7 @@ public class FaceDetector : MonoBehaviour
                 dice.diceFaceNum = int.Parse(other.name);
                 if (playermovement1.x == 0)
                 {
-                    Debug.LogError("hello");
-                    StartCoroutine(playermovement1.MovePlayer());
+                    StartCoroutine(PlayTurn.PlayTurn());
                     playermovement1.x = 1;
 
                 }
