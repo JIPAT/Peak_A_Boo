@@ -16,7 +16,12 @@ public class DiceRoll : MonoBehaviour
     {
         if (body != null)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0)&& playermovement1.y == 2)
+            {
+                RollDice();
+
+            }
+            else if (Input.GetMouseButtonDown(0)&& playermovement1.y != 2)
             {
                 RollDice();
                 playermovement1.x = 0;

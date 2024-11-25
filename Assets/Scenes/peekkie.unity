@@ -651,6 +651,7 @@ MonoBehaviour:
   isMoving: 0
   steps: 0
   x: 0
+  y: 0
   diceRollScript: {fileID: 0}
   moveSpeed: 2
 --- !u!1001 &55456778
@@ -3511,6 +3512,7 @@ MonoBehaviour:
   isMoving: 0
   steps: 0
   x: 0
+  y: 0
   diceRollScript: {fileID: 0}
   moveSpeed: 2
 --- !u!1001 &277584296
@@ -7676,6 +7678,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 26be381455f4a274c8688dd8ff4f5893, type: 3}
   m_PrefabInstance: {fileID: 546854474}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &906671484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 906671486}
+  - component: {fileID: 906671485}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &906671485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906671484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29610eb56a8df44d80a88a0e4ed76bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dice: {fileID: 1356218886}
+  targetDiceNumber: 0
+--- !u!4 &906671486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906671484}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.83791256, y: -2.1105998, z: 1.377772}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &919680383 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9027066301814108523, guid: 681d246977554b146b68ac0bc80c5289, type: 3}
@@ -14897,6 +14945,10 @@ MonoBehaviour:
   player1: {fileID: 53442711}
   player2: {fileID: 272003693}
   dice: {fileID: 1356218886}
+  eventManager: {fileID: 906671485}
+  playermovement1: {fileID: 272003693}
+  currentPlayer: {fileID: 0}
+  isDiceRolling: 0
 --- !u!4 &2061020244
 Transform:
   m_ObjectHideFlags: 0
@@ -15601,3 +15653,4 @@ SceneRoots:
   - {fileID: 445045988}
   - {fileID: 2061020244}
   - {fileID: 272003691}
+  - {fileID: 906671486}

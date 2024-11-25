@@ -10,6 +10,7 @@ public class Playermovement1 : MonoBehaviour
     public bool isMoving = false;
     public int steps;
     public int x;
+    public int y;
     public DiceRoll diceRollScript; // ตัวแปรอ้างอิงถึงสคริปต์ DiceRoll
 
     [SerializeField] private float moveSpeed = 2f; // ความเร็วในการเคลื่อนที่
@@ -54,8 +55,43 @@ public class Playermovement1 : MonoBehaviour
                 }
             }
             isMoving = false; // หยุดเคลื่อนที่เมื่อถึงเป้าหมาย
-        
-
-
     }
+
+    public IEnumerator MoveSteps(int stepsToMove)
+    {
+        int direction = stepsToMove > 0 ? 1 : -1; // กำหนดทิศทาง (เดินหน้า = 1, ถอยหลัง = -1)
+        stepsToMove = Mathf.Abs(stepsToMove); // ทำให้จำนวนก้าวเป็นบวก
+
+        for (int i = 0; i < stepsToMove; i++)
+        {
+            // เพิ่ม/ลด Index ตามทิศทาง
+            if (direction > 0 && currentNodeIndex < pathNodes.Length - 1)
+            {
+                currentNodeIndex++;
+            }
+            else if (direction < 0 && currentNodeIndex > 0)
+            {
+                currentNodeIndex--;
+            }
+            else if (currentNodeIndex > pathNodes.Length - 1)
+            {
+                Debug.Log("Cannot move further in this direction.");
+                break; // หยุดหากไม่สามารถเดินต่อได้
+            }
+
+            Vector3 targetPosition = pathNodes[currentNodeIndex].position;
+
+            // เคลื่อนที่ไปยังโหนดใหม่
+            while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+                yield return null;
+            }
+
+            Debug.Log($"Player moved to Node {currentNodeIndex}");
+        }
+
+        yield return null; // รอให้ Coroutine จบ
+    }
+
 }
