@@ -21,13 +21,15 @@ public class DiceRoll : MonoBehaviour
             if (Input.GetMouseButtonDown(0)&& PlayTurn.currentPlayer.y == 2)
             {
                 RollDice();
-
+                PlayTurn.isDiceRolling = false;
+                PlayTurn.currentPlayer.y = 0;
 
             }
             else if (Input.GetMouseButtonDown(0)&& PlayTurn.currentPlayer.y != 2)
             {
                 RollDice();
                 PlayTurn.currentPlayer.x = 0;
+                PlayTurn.isDiceRolling = false;
                 Debug.Log(PlayTurn.currentPlayer.x);
             }
         }

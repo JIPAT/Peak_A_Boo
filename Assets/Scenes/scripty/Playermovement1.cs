@@ -92,6 +92,8 @@ public class Playermovement1 : MonoBehaviour
         }
 
         yield return null; // รอให้ Coroutine จบ
+        isMoving = false; // หยุดเคลื่อนที่เมื่อถึงเป้าหมาย
+        stepsToMove = 0;
     }
 
 }

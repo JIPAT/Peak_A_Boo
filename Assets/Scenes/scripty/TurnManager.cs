@@ -64,13 +64,12 @@ public class TurnManager : MonoBehaviour
         {
             // สลับผู้เล่น
             currentPlayer = currentPlayer == player1 ? player2 : player1;
-            Debug.Log($"Now it's {currentPlayer.name}'s turn.");
+            Debug.Log($"สลับNow it's {currentPlayer.name}'s turn.");
 
-            isDiceRolling = false;
         }
     }
 
-    private List<int> eventTiles = new List<int> { 7, 9, 17, 20, 21, 26, 29, 30, 35, 38 }; // เพิ่มช่อง Event ที่ต้องการ
+    private List<int> eventTiles = new List<int> { 7, 20, 38 }; // เพิ่มช่อง Event ที่ต้องการ
 
     private bool IsEventTile(int nodeIndex)
     {

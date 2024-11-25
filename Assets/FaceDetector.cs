@@ -27,34 +27,36 @@ public class FaceDetector : MonoBehaviour
             if (dice.GetComponent<Rigidbody>().velocity == Vector3.zero)
             {
                 dice.diceFaceNum = int.Parse(other.name); // อ่านค่าผลลัพธ์จากลูกเต๋า
-
-                if (PlayTurn.currentPlayer.y == 2) // ตรวจสอบว่า Player ปัจจุบันพร้อมเดินหรือไม่
+                                                          // ตรวจสอบว่าเป็นเทิร์นของผู้เล่นที่ถูกต้อง
+                if (PlayTurn.currentPlayer != null && !PlayTurn.isDiceRolling)
                 {
-                    // ตรวจสอบผลการทอยลูกเต๋า
-                    Debug.Log($"Player rolled: {dice.diceFaceNum}");
-
-                    if (dice.diceFaceNum == eventManager.targetDiceNumber)
+                    if (PlayTurn.currentPlayer.y == 2) // ตรวจสอบว่า Player ปัจจุบันพร้อมเดินหรือไม่
                     {
-                        Debug.Log($"{PlayTurn.currentPlayer.name} succeeded! Moving forward 2 steps.");
-                        StartCoroutine(PlayTurn.currentPlayer.MoveSteps(2)); // เดินหน้า 2 ช่อง
-                    }
-                    else
-                    {
-                        Debug.Log($"{PlayTurn.currentPlayer.name} failed! Moving backward 2 steps.");
-                        StartCoroutine(PlayTurn.currentPlayer.MoveSteps(-2)); // ถอยหลัง 2 ช่อง
-                    }
+                        // ตรวจสอบผลการทอยลูกเต๋า
+                        Debug.Log($"Player rolled: {dice.diceFaceNum}");
 
-                    // สลับผู้เล่น
-                    PlayTurn.currentPlayer = PlayTurn.currentPlayer == PlayTurn.player1 ? PlayTurn.player2 : PlayTurn.player1;
-                    Debug.Log($"Now it's {PlayTurn.currentPlayer.name}'s turn.");
-                    PlayTurn.currentPlayer.x = 1;
-                    PlayTurn.currentPlayer.y = 0;
-                    PlayTurn.isDiceRolling = false;
-                }
-                if (PlayTurn.currentPlayer.x == 0 && PlayTurn.currentPlayer.y != 2)
-                {
-                    StartCoroutine(PlayTurn.PlayTurn()); // เริ่มต้นเทิร์นใหม่
-                    PlayTurn.currentPlayer.x = 1;
+                        if (dice.diceFaceNum == eventManager.targetDiceNumber)
+                        {
+                            Debug.Log($"{PlayTurn.currentPlayer.name} succeeded! Moving forward 2 steps.");
+                            StartCoroutine(PlayTurn.currentPlayer.MoveSteps(2)); // เดินหน้า 2 ช่อง
+                        }
+                        else
+                        {
+                            Debug.Log($"{PlayTurn.currentPlayer.name} failed! Moving backward 2 steps.");
+                            StartCoroutine(PlayTurn.currentPlayer.MoveSteps(-2)); // ถอยหลัง 2 ช่อง
+                        }
+                        
+                        // สลับผู้เล่น
+                        PlayTurn.currentPlayer = PlayTurn.currentPlayer == PlayTurn.player1 ? PlayTurn.player2 : PlayTurn.player1;
+                        Debug.Log($"ไรอะNow it's {PlayTurn.currentPlayer.name}'s turn.");
+                        PlayTurn.currentPlayer.x = 1;
+
+                    }
+                    if (PlayTurn.currentPlayer.x == 0 && PlayTurn.currentPlayer.y != 2)
+                    {
+                        StartCoroutine(PlayTurn.PlayTurn()); // เริ่มต้นเทิร์นใหม่
+                        PlayTurn.currentPlayer.x = 1;
+                    }
                 }
             }
         }
