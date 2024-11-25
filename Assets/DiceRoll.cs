@@ -7,24 +7,29 @@ public class DiceRoll : MonoBehaviour
     private float forceX, forceY, forceZ;
     public int diceFaceNum;
     Playermovement1 playermovement1;
+    TurnManager PlayTurn;
     private void Awake()
     {
         Initialize();
         playermovement1 = FindObjectOfType<Playermovement1>();
+        PlayTurn = FindObjectOfType<TurnManager>();
     }
     private void Update()
     {
         if (body != null)
         {
-            if (Input.GetMouseButtonDown(0)&& playermovement1.y == 2)
+            Debug.Log("ควย");
+            if (Input.GetMouseButtonDown(0)&& PlayTurn.currentPlayer.y == 2)
             {
                 RollDice();
 
+
             }
-            else if (Input.GetMouseButtonDown(0)&& playermovement1.y != 2)
+            else if (Input.GetMouseButtonDown(0)&& PlayTurn.currentPlayer.y != 2)
             {
                 RollDice();
-                playermovement1.x = 0;
+                PlayTurn.currentPlayer.x = 0;
+                Debug.Log(PlayTurn.currentPlayer.x);
             }
         }
     }

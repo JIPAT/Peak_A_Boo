@@ -92,6 +92,7 @@ public class Playermovement1 : MonoBehaviour
         }
 
         yield return null; // √Õ„ÀÈ Coroutine ®∫
+        Debug.Log("À’");
     }
 
 }

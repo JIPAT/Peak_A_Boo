@@ -11,7 +11,6 @@ public class TurnManager : MonoBehaviour
     public Playermovement1 playermovement1; // ตัวแปรอ้างอิงถึง Player 2
     public Playermovement1 currentPlayer; // ผู้เล่นคนปัจจุบัน
     public bool isDiceRolling = false; // เช็คว่ากำลังทอยลูกเต๋าหรือไม่
-   
 
     private void Start()
     {
@@ -58,7 +57,7 @@ public class TurnManager : MonoBehaviour
             Debug.Log($"Player landed on an Event Tile at Node {currentPlayer.currentNodeIndex}");
             // เรียกใช้ TriggerEvent จาก EventManager
             yield return eventManager.StartCoroutine(eventManager.TriggerEvent(currentPlayer));
-            playermovement1.y = 2;
+            currentPlayer.y = 2;
         }
 
         else if (!IsEventTile(currentPlayer.currentNodeIndex))
@@ -71,7 +70,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private List<int> eventTiles = new List<int> { 3, 4, 5, 6, 7, 8, 9, 10, 15 }; // เพิ่มช่อง Event ที่ต้องการ
+    private List<int> eventTiles = new List<int> { 7, 9, 17, 20, 21, 26, 29, 30, 35, 38 }; // เพิ่มช่อง Event ที่ต้องการ
 
     private bool IsEventTile(int nodeIndex)
     {

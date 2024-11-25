@@ -7,10 +7,12 @@ public class EventManager : MonoBehaviour
     public int targetDiceNumber; // แต้มเป้าหมายของ Event
     private bool isPlayerRolling = false; // ใช้เพื่อตรวจสอบว่าผู้เล่นทอยลูกเต๋าหรือไม่
     Playermovement1 playermovement1;
+    TurnManager PlayTurn;
 
     private void Awake()
     {
         playermovement1 = FindObjectOfType<Playermovement1>();
+        PlayTurn = FindObjectOfType<TurnManager>();
     }
 
     public IEnumerator TriggerEvent(Playermovement1 player)
