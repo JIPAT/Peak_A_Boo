@@ -1,47 +1,3 @@
-// using UnityEngine;
-// [RequireComponent(typeof(Rigidbody))]
-// public class DiceRoll : MonoBehaviour
-// {
-//     Rigidbody body;
-//     [SerializeField] private float maxRandomForceValue, startRollingForce;
-//     private float forceX, forceY, forceZ;
-//     public int diceFaceNum;
-//     private void Awake()
-//     {
-//         Initialize();
-//     }
-//     private void Update()
-//     {
-//         if (body != null)
-//         {
-//             if (Input.GetMouseButtonDown(0))
-//             {
-//                 isTurnActive = false;
-//                 RollDice();
-//             }
-//         }
-//     }
-//     private void RollDice()
-//     {
-//         body.isKinematic = false;
-
-//         forceX = Random.Range(0, maxRandomForceValue);
-//         forceY = Random.Range(0, maxRandomForceValue);
-//         forceZ = Random.Range(0, maxRandomForceValue);
-
-//         body.AddForce(Vector3.up * startRollingForce);
-//         body.AddTorque(forceX, forceY, forceZ);
-//     }
-//     private void Initialize()
-//     {
-//         body = GetComponent<Rigidbody>();
-//         body.isKinematic = true;
-//         transform.rotation = new Quaternion(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360), 0);
-//     }
-// }
-
-
-
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class DiceRoll : MonoBehaviour
@@ -50,32 +6,35 @@ public class DiceRoll : MonoBehaviour
     [SerializeField] private float maxRandomForceValue, startRollingForce;
     private float forceX, forceY, forceZ;
     public int diceFaceNum;
-    private PlayerTurn playerTurn; // เพิ่มการอ้างอิงถึง PlayerTurn
-
+    Playermovement1 playermovement1;
+    TurnManager PlayTurn;
     private void Awake()
     {
         Initialize();
-        playerTurn = FindObjectOfType<PlayerTurn>(); // ค้นหา PlayerTurn ใน Scene
-        if (playerTurn == null)
-        {
-            Debug.LogError("PlayerTurn component not found in the scene.");
-        }
+        playermovement1 = FindObjectOfType<Playermovement1>();
+        PlayTurn = FindObjectOfType<TurnManager>();
     }
-
     private void Update()
     {
         if (body != null)
         {
-            if (Input.GetMouseButtonDown(0)) // ตรวจสอบการคลิกเมาส์
+            if (Input.GetMouseButtonDown(0)&& PlayTurn.currentPlayer.y == 2)
             {
-                playerTurn.isTurnActive = false;  // เริ่มต้นเทิร์นเมื่อคลิก
-                RollDice();  // เริ่มการทอยลูกเต๋า
-            
+                RollDice();
+                PlayTurn.isDiceRolling = false;
+                PlayTurn.currentPlayer.y = 0;
+
+            }
+            else if (Input.GetMouseButtonDown(0)&& PlayTurn.currentPlayer.y != 2)
+            {
+                RollDice();
+                PlayTurn.currentPlayer.x = 0;
+                PlayTurn.isDiceRolling = false;
+                Debug.Log(PlayTurn.currentPlayer.x);
             }
         }
     }
-
-    private void RollDice()
+    public void RollDice()
     {
         body.isKinematic = false;
 
@@ -85,8 +44,8 @@ public class DiceRoll : MonoBehaviour
 
         body.AddForce(Vector3.up * startRollingForce);
         body.AddTorque(forceX, forceY, forceZ);
-    }
 
+    }
     private void Initialize()
     {
         body = GetComponent<Rigidbody>();

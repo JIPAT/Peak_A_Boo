@@ -1,23 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Playermovement1 : MonoBehaviour
 {
-    public DiceRoll dice; // ��ҧ�ԧ�֧ DiceRoll script
-    public Transform[] pathNodes; // Node ����繨ش���鹷ҧ�ͧ��ҹ
-    public int currentNodeIndex = 0; // ���˹觻Ѩ�غѹ�ͧ Player
+    public DiceRoll dice; // อ้างอิงถึง DiceRoll script
+    public Transform[] pathNodes; // Node ที่เป็นจุดในเส้นทางของด่าน
+    public int currentNodeIndex = 0; // ตำแหน่งปัจจุบันของ Player
     public bool isMoving = false;
     public int steps;
     public int x;
     public int y;
-    public DiceRoll diceRollScript; // �������ҧ�ԧ�֧ʤ�Ի�� DiceRoll
+    public DiceRoll diceRollScript; // ตัวแปรอ้างอิงถึงสคริปต์ DiceRoll
 
-    [SerializeField] private float moveSpeed = 2f; // ��������㹡������͹���
+    [SerializeField] private float moveSpeed = 2f; // ความเร็วในการเคลื่อนที่
+
+    [SerializeField] TextMeshProUGUI player1; // ตำแหน่ง Player 1
 
     private void Start()
     {
-        // ��駤�ҵ��˹�������鹢ͧ Player
+        // ตั้งค่าตำแหน่งเริ่มต้นของ Player
         if (pathNodes.Length > 0)
         {
             transform.position = pathNodes[0].position;
@@ -26,45 +29,49 @@ public class Playermovement1 : MonoBehaviour
 
     private void Update()
     {
-        
+        player1.text = currentNodeIndex.ToString();
+
     }
 
 
     public System.Collections.IEnumerator MovePlayer()
     {
+        Debug.Log("Start" + currentNodeIndex);
         steps = dice.diceFaceNum;
         Debug.LogError(steps);
         for (int i = 0; i < steps; i++)
             {
-            // ���� Index ����������ѧ Node �Ѵ�
+            // เพิ่ม Index เพื่อย้ายไปยัง Node ถัดไป
             if (currentNodeIndex >= pathNodes.Length - 1)
             {
-                currentNodeIndex = pathNodes.Length - 1; // ��͡�����˹��ش������������͡�ش����
+                currentNodeIndex = pathNodes.Length - 1; // ล็อกให้ตำแหน่งสุดท้ายอยู่ที่บล็อกสุดท้าย
                 Debug.Log("Player has reached the finish line!");
-                break; // ��ش����Թ
+                break; // หยุดการเดิน
             }
+
             currentNodeIndex = (currentNodeIndex + 1) % pathNodes.Length;
 
                 Vector3 targetPosition = pathNodes[currentNodeIndex].position;
 
-                // ����͹�����ѧ���˹觢ͧ Node �Ѩ�غѹ
+                // เคลื่อนที่ไปยังตำแหน่งของ Node ปัจจุบัน
                 while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
                     yield return null;
                 }
             }
-            isMoving = false; // ��ش����͹�������Ͷ֧�������
+            isMoving = false; // หยุดเคลื่อนที่เมื่อถึงเป้าหมาย
+            Debug.Log("end" + currentNodeIndex);
     }
 
     public IEnumerator MoveSteps(int stepsToMove)
     {
-        int direction = stepsToMove > 0 ? 1 : -1; // ��˹���ȷҧ (�Թ˹�� = 1, �����ѧ = -1)
-        stepsToMove = Mathf.Abs(stepsToMove); // �����ӹǹ�����繺ǡ
+        int direction = stepsToMove > 0 ? 1 : -1; // กำหนดทิศทาง (เดินหน้า = 1, ถอยหลัง = -1)
+        stepsToMove = Mathf.Abs(stepsToMove); // ทำให้จำนวนก้าวเป็นบวก
 
         for (int i = 0; i < stepsToMove; i++)
         {
-            // ����/Ŵ Index �����ȷҧ
+            // เพิ่ม/ลด Index ตามทิศทาง
             if (direction > 0 && currentNodeIndex < pathNodes.Length - 1)
             {
                 currentNodeIndex++;
@@ -76,12 +83,12 @@ public class Playermovement1 : MonoBehaviour
             else if (currentNodeIndex > pathNodes.Length - 1)
             {
                 Debug.Log("Cannot move further in this direction.");
-                break; // ��ش�ҡ�������ö�Թ�����
+                break; // หยุดหากไม่สามารถเดินต่อได้
             }
 
             Vector3 targetPosition = pathNodes[currentNodeIndex].position;
 
-            // ����͹�����ѧ�˹�����
+            // เคลื่อนที่ไปยังโหนดใหม่
             while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -91,7 +98,9 @@ public class Playermovement1 : MonoBehaviour
             Debug.Log($"Player moved to Node {currentNodeIndex}");
         }
 
-        yield return null; // ����� Coroutine ��
+        yield return null; // รอให้ Coroutine จบ
+        isMoving = false; // หยุดเคลื่อนที่เมื่อถึงเป้าหมาย
+        stepsToMove = 0;
     }
 
 }

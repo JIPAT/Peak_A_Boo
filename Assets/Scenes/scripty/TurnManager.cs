@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    public Playermovement1 player1; // µ—«·ª√ÕÈ“ßÕ‘ß∂÷ß Player 1
-    public Playermovement1 player2; // µ—«·ª√ÕÈ“ßÕ‘ß∂÷ß Player 2
-    public DiceRoll dice; // µ—«·ª√ÕÈ“ßÕ‘ß∂÷ß DiceRoll script
+    public Playermovement1 player1; // ‡∏ï‡∏±‡∏ß‡πÅ‡∏õ‡∏£‡∏≠‡πâ‡∏≤‡∏á‡∏≠‡∏¥‡∏á‡∏ñ‡∏∂‡∏á Player 1
+    public Playermovement1 player2; // ‡∏ï‡∏±‡∏ß‡πÅ‡∏õ‡∏£‡∏≠‡πâ‡∏≤‡∏á‡∏≠‡∏¥‡∏á‡∏ñ‡∏∂‡∏á Player 2
+    public DiceRoll dice; // ‡∏ï‡∏±‡∏ß‡πÅ‡∏õ‡∏£‡∏≠‡πâ‡∏≤‡∏á‡∏≠‡∏¥‡∏á‡∏ñ‡∏∂‡∏á DiceRoll script
     public EventManager eventManager;
-    public Playermovement1 playermovement1; // µ—«·ª√ÕÈ“ßÕ‘ß∂÷ß Player 2
-    public Playermovement1 currentPlayer; // ºŸÈ‡≈Ëπ§πª—®®ÿ∫—π
-    public bool isDiceRolling = false; // ‡™Á§«Ë“°”≈—ß∑Õ¬≈Ÿ°‡µÎ“À√◊Õ‰¡Ë
+    public Playermovement1 playermovement1; // ‡∏ï‡∏±‡∏ß‡πÅ‡∏õ‡∏£‡∏≠‡πâ‡∏≤‡∏á‡∏≠‡∏¥‡∏á‡∏ñ‡∏∂‡∏á Player 2
+    public Playermovement1 currentPlayer; // ‡∏ú‡∏π‡πâ‡πÄ‡∏•‡πà‡∏ô‡∏Ñ‡∏ô‡∏õ‡∏±‡∏à‡∏à‡∏∏‡∏ö‡∏±‡∏ô
+    public bool isDiceRolling = false; // ‡πÄ‡∏ä‡πá‡∏Ñ‡∏ß‡πà‡∏≤‡∏Å‡∏≥‡∏•‡∏±‡∏á‡∏ó‡∏≠‡∏¢‡∏•‡∏π‡∏Å‡πÄ‡∏ï‡πã‡∏≤‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà
 
     private void Start()
     {
         playermovement1 = FindObjectOfType<Playermovement1>();
         eventManager = FindObjectOfType<EventManager>();
-        // µ√«® Õ∫«Ë“‰¥È°”Àπ¥§Ë“„ÀÈ°—∫ player1, player2, dice ·≈È«
+        // ‡∏ï‡∏£‡∏ß‡∏à‡∏™‡∏≠‡∏ö‡∏ß‡πà‡∏≤‡πÑ‡∏î‡πâ‡∏Å‡∏≥‡∏´‡∏ô‡∏î‡∏Ñ‡πà‡∏≤‡πÉ‡∏´‡πâ‡∏Å‡∏±‡∏ö player1, player2, dice ‡πÅ‡∏•‡πâ‡∏ß
         if (player1 == null || player2 == null || dice == null)
         {
             Debug.LogError("Please assign all references in the inspector!");
@@ -38,43 +38,42 @@ public class TurnManager : MonoBehaviour
         if (dice == null || currentPlayer == null)
         {
             Debug.LogError("Dice or CurrentPlayer is not assigned!");
-            yield break; // À¬ÿ¥°“√∑”ß“πÀ“°æ∫«Ë“‰¡Ë “¡“√∂„™Èß“π‰¥È
+            yield break; // ‡∏´‡∏¢‡∏∏‡∏î‡∏Å‡∏≤‡∏£‡∏ó‡∏≥‡∏á‡∏≤‡∏ô‡∏´‡∏≤‡∏Å‡∏û‡∏ö‡∏ß‡πà‡∏≤‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÉ‡∏ä‡πâ‡∏á‡∏≤‡∏ô‡πÑ‡∏î‡πâ
         }
 
         isDiceRolling = true;
 
-        // ∑Õ¬≈Ÿ°‡µÎ“
+        // ‡∏ó‡∏≠‡∏¢‡∏•‡∏π‡∏Å‡πÄ‡∏ï‡πã‡∏≤
         yield return new WaitUntil(() => dice.GetComponent<Rigidbody>().velocity == Vector3.zero);
 
-        // ‡√‘Ë¡„ÀÈºŸÈ‡≈Ëπ§πª—®®ÿ∫—π‡¥‘π
+        // ‡πÄ‡∏£‡∏¥‡πà‡∏°‡πÉ‡∏´‡πâ‡∏ú‡∏π‡πâ‡πÄ‡∏•‡πà‡∏ô‡∏Ñ‡∏ô‡∏õ‡∏±‡∏à‡∏à‡∏∏‡∏ö‡∏±‡∏ô‡πÄ‡∏î‡∏¥‡∏ô
         Debug.Log($"{currentPlayer.name} rolled: {dice.diceFaceNum}");
         currentPlayer.steps = dice.diceFaceNum;
         yield return currentPlayer.StartCoroutine(currentPlayer.MovePlayer());
 
-        // µ√«® Õ∫«Ë“ºŸÈ‡≈Ëπµ°≈ß∑’Ë™ËÕß Event À√◊Õ‰¡Ë
+        // ‡∏ï‡∏£‡∏ß‡∏à‡∏™‡∏≠‡∏ö‡∏ß‡πà‡∏≤‡∏ú‡∏π‡πâ‡πÄ‡∏•‡πà‡∏ô‡∏ï‡∏Å‡∏•‡∏á‡∏ó‡∏µ‡πà‡∏ä‡πà‡∏≠‡∏á Event ‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà
         if (IsEventTile(currentPlayer.currentNodeIndex))
         {
             Debug.Log($"Player landed on an Event Tile at Node {currentPlayer.currentNodeIndex}");
-            // ‡√’¬°„™È TriggerEvent ®“° EventManager
+            // ‡πÄ‡∏£‡∏µ‡∏¢‡∏Å‡πÉ‡∏ä‡πâ TriggerEvent ‡∏à‡∏≤‡∏Å EventManager
             yield return eventManager.StartCoroutine(eventManager.TriggerEvent(currentPlayer));
             currentPlayer.y = 2;
         }
 
         else if (!IsEventTile(currentPlayer.currentNodeIndex))
         {
-            //  ≈—∫ºŸÈ‡≈Ëπ
+            // ‡∏™‡∏•‡∏±‡∏ö‡∏ú‡∏π‡πâ‡πÄ‡∏•‡πà‡∏ô
             currentPlayer = currentPlayer == player1 ? player2 : player1;
-            Debug.Log($"Now it's {currentPlayer.name}'s turn.");
+            Debug.Log($"‡∏™‡∏•‡∏±‡∏öNow it's {currentPlayer.name}'s turn.");
 
-            isDiceRolling = false;
         }
     }
 
-    private List<int> eventTiles = new List<int> { 7, 9, 17, 20, 21, 26, 29, 30, 35, 38 }; // ‡æ‘Ë¡™ËÕß Event ∑’ËµÈÕß°“√
+    private List<int> eventTiles = new List<int> { 7, 20, 38 }; // ‡πÄ‡∏û‡∏¥‡πà‡∏°‡∏ä‡πà‡∏≠‡∏á Event ‡∏ó‡∏µ‡πà‡∏ï‡πâ‡∏≠‡∏á‡∏Å‡∏≤‡∏£
 
     private bool IsEventTile(int nodeIndex)
     {
-        // µ√«® Õ∫«Ë“ Node ª—®®ÿ∫—πÕ¬ŸË„π List ¢Õß Event Tiles À√◊Õ‰¡Ë
+        // ‡∏ï‡∏£‡∏ß‡∏à‡∏™‡∏≠‡∏ö‡∏ß‡πà‡∏≤ Node ‡∏õ‡∏±‡∏à‡∏à‡∏∏‡∏ö‡∏±‡∏ô‡∏≠‡∏¢‡∏π‡πà‡πÉ‡∏ô List ‡∏Ç‡∏≠‡∏á Event Tiles ‡∏´‡∏£‡∏∑‡∏≠‡πÑ‡∏°‡πà
         return eventTiles.Contains(nodeIndex);
     }
 
