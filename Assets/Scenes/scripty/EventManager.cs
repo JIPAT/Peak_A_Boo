@@ -1,13 +1,16 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class EventManager : MonoBehaviour
 {
-    public DiceRoll dice; // µÑÇá»ÃÍéÒ§ÍÔ§¶Ö§ DiceRoll script
-    public int targetDiceNumber; // áµéÁà»éÒËÁÒÂ¢Í§ Event
-    private bool isPlayerRolling = false; // ãªéà¾×èÍµÃÇ¨ÊÍºÇèÒ¼ÙéàÅè¹·ÍÂÅÙ¡àµëÒËÃ×ÍäÁè
+    public DiceRoll dice; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò§ï¿½Ô§ï¿½Ö§ DiceRoll script
+    public int targetDiceNumber; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¢Í§ Event
+    private bool isPlayerRolling = false; // ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½Ç¨ï¿½Íºï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½è¹·ï¿½ï¿½ï¿½Ù¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Playermovement1 playermovement1;
     TurnManager PlayTurn;
+    [SerializeField] TextMeshProUGUI Event;      // à¹à¸ªà¸”à¸‡à¸Šà¸·à¹ˆà¸­à¸œà¸¹à¹‰à¸Šà¸™à¸°à¹ƒà¸™ UI
+
 
     private void Awake()
     {
@@ -17,15 +20,16 @@ public class EventManager : MonoBehaviour
 
     public IEnumerator TriggerEvent(Playermovement1 player)
     {
-        // ÊØèÁáµéÁà»éÒËÁÒÂ (1 ¶Ö§ 6)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (1 ï¿½Ö§ 6)
         targetDiceNumber = Random.Range(1, 7);
         Debug.Log($"Event Triggered! {player.name} must roll a {targetDiceNumber} to succeed.");
+        Event.text = "Roll the dice to get " + (targetDiceNumber);
 
-        // ÃÍãËé¼ÙéàÅè¹¤ÅÔ¡à¾×èÍ·ÍÂÅÙ¡àµëÒ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è¹¤ï¿½Ô¡ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ù¡ï¿½ï¿½ï¿½
         Debug.Log("Waiting for the player to roll the dice. Click to roll!");
-        isPlayerRolling = false; // µÑé§¤èÒàÃÔèÁµé¹
+        isPlayerRolling = false; // ï¿½ï¿½é§¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        yield return new WaitUntil(() => Input.GetMouseButtonDown(0)); // ÃÍ¨¹¡ÇèÒ¼ÙéàÅè¹¨Ð¤ÅÔ¡àÁÒÊì
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0)); // ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½è¹¨Ð¤ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½
         
 
     }
