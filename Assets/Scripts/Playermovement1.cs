@@ -34,8 +34,7 @@ public class Playermovement1 : MonoBehaviour
 
     private void Update()
     {
-        // player1.text = currentNodeIndex.ToString();
-
+        player1.text = currentNodeIndex.ToString();
 
     }
 

@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
     Playermovement1 playermovement1;
     TurnManager PlayTurn;
     [SerializeField] TextMeshProUGUI Event;      // แสดงชื่อผู้ชนะใน UI
+    [SerializeField] TextMeshProUGUI aaaa;  
 
 
     private void Awake()
@@ -20,16 +21,18 @@ public class EventManager : MonoBehaviour
 
     public IEnumerator TriggerEvent(Playermovement1 player)
     {
-        // �������������� (1 �֧ 6)
+
         targetDiceNumber = Random.Range(1, 7);
         Debug.Log($"Event Triggered! {player.name} must roll a {targetDiceNumber} to succeed.");
-        Event.text = "Roll the dice to get " + (targetDiceNumber);
+        // Event.text = "Roll the dice to get " + targetDiceNumber;
+        // aaaa.text = targetDiceNumber.ToString();
+        Debug.Log("11111111111111111111111111111111111111111");
 
-        // ���������蹤�ԡ���ͷ���١���
+
         Debug.Log("Waiting for the player to roll the dice. Click to roll!");
-        isPlayerRolling = false; // ��駤���������
+        isPlayerRolling = false; 
 
-        yield return new WaitUntil(() => Input.GetMouseButtonDown(0)); // �ͨ����Ҽ����蹨Ф�ԡ�����
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0)); 
         
 
     }

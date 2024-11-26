@@ -217,7 +217,7 @@ public class PlayerTurn : MonoBehaviour
     public void EventMessage()
     {
         EventPanel.SetActive(true); // เปิด UI "Congrats, you win!"
-        Event.text = "Roll the dice to get " + (eventManager.targetDiceNumber);
+        // Event.text = "Roll the dice to get " + (eventManager.targetDiceNumber);
 
         Invoke("HideEventPanel", 3f); // เรียกฟังก์ชันซ่อน UI หลังจาก 3 วินาที
     }
@@ -226,7 +226,7 @@ public class PlayerTurn : MonoBehaviour
     {
         EventPanel.SetActive(false); // ปิด UI
     }
-    
+
     private void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // โหลดฉากใหม่
