@@ -103,7 +103,8 @@ public class PlayerTurn : MonoBehaviour
     [SerializeField] GameObject winPanel;          // UI แสดงข้อความ "Congrats, you win!"
     [SerializeField] TextMeshProUGUI winText;      // แสดงชื่อผู้ชนะใน UI
 
-
+    [SerializeField] GameObject EventPanel;      // UI แสดงข้อความ "Congrats, you win!"
+    [SerializeField] TextMeshProUGUI Event;      // แสดงชื่อผู้ชนะใน UI
 
 
     private int[] playerPositions = { 1, 1 }; // ตำแหน่งปัจจุบันของผู้เล่น (เริ่มที่ช่อง 1)
@@ -118,11 +119,13 @@ public class PlayerTurn : MonoBehaviour
     public bool isTurnActive = false;  // ตัวแปรใหม่ใช้ควบคุมให้เรียก TurnValue() ทีละครั้ง
     public Playermovement1 player;
     public TurnManager turnManager;
+    public EventManager eventManager;
     
     private void Awake()
     {
         player = FindObjectOfType<Playermovement1>();
         turnManager = FindObjectOfType<TurnManager>();
+        eventManager = FindObjectOfType<EventManager>();
     }
     
     private void Start()
@@ -182,7 +185,7 @@ public class PlayerTurn : MonoBehaviour
 
         // รีเซ็ต isTurnActive หลังจากจบเทิร์น
         isTurnActive = false; // รีเซ็ตเพื่อให้สามารถเรียก TurnValue ในเทิร์นถัดไป
-        // Debug.Log("Player's turn  " + isTurnActive);
+
     }
 
     private void UpdateUI()
@@ -192,7 +195,7 @@ public class PlayerTurn : MonoBehaviour
 
 
         // แสดงคะแนนลูกเต๋าล่าสุด
-        diceScoreText.text = "Dice: " + lastDiceScore;
+        // diceScoreText.text = "Dice: " + dice.diceFaceNum.ToString();
         // Debug.Log("lastDiceScore: " + lastDiceScore);
 
         // แสดงตำแหน่งของผู้เล่นแต่ละคน
@@ -203,14 +206,27 @@ public class PlayerTurn : MonoBehaviour
         turnText.text = turnManager.currentPlayer.ToString();
     }
 
-    private void ShowWinMessage(int winner)
+    public void ShowWinMessage()
     {
         winPanel.SetActive(true); // เปิด UI "Congrats, you win!"
-        winText.text = "Congrats, Player " + (winner + 1) + " wins!";
+        winText.text = "Congrats, Player " + (turnManager.currentPlayer.name.ToString()) + " wins!";
 
         Invoke("RestartGame", 5f); // รอ 3 วินาที แล้วรีสตาร์ตเกม
     }
 
+    public void EventMessage()
+    {
+        EventPanel.SetActive(true); // เปิด UI "Congrats, you win!"
+        Event.text = "Roll the dice to get " + (eventManager.targetDiceNumber);
+
+        Invoke("HideEventPanel", 3f); // เรียกฟังก์ชันซ่อน UI หลังจาก 3 วินาที
+    }
+
+    private void HideEventPanel()
+    {
+        EventPanel.SetActive(false); // ปิด UI
+    }
+    
     private void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // โหลดฉากใหม่
@@ -218,8 +234,9 @@ public class PlayerTurn : MonoBehaviour
 
     private void Update()
     {
+        diceScoreText.text = "Dice: " + dice.diceFaceNum.ToString();
         player1PositionText.text = player.currentNodeIndex.ToString();
-        turnText.text = turnManager.currentPlayer.ToString();
+        turnText.text = turnManager.currentPlayer.name.ToString() + "'s Turn";
     }
 
 }

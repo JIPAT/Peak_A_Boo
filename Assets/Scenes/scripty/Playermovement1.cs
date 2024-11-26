@@ -13,6 +13,9 @@ public class Playermovement1 : MonoBehaviour
     public int x;
     public int y;
     public DiceRoll diceRollScript; // ตัวแปรอ้างอิงถึงสคริปต์ DiceRoll
+    public PlayerTurn playerTurn;
+    public TurnManager currentPlayer; // ผู้เล่นคนปัจจุบัน
+    
 
     [SerializeField] private float moveSpeed = 2f; // ความเร็วในการเคลื่อนที่
 
@@ -25,11 +28,14 @@ public class Playermovement1 : MonoBehaviour
         {
             transform.position = pathNodes[0].position;
         }
+
+        playerTurn = FindObjectOfType<PlayerTurn>();
     }
 
     private void Update()
     {
         player1.text = currentNodeIndex.ToString();
+
 
     }
 
@@ -42,10 +48,12 @@ public class Playermovement1 : MonoBehaviour
         for (int i = 0; i < steps; i++)
             {
             // เพิ่ม Index เพื่อย้ายไปยัง Node ถัดไป
-            if (currentNodeIndex >= pathNodes.Length - 1)
+            if (currentNodeIndex >= 39)  //pathNodes.Length - 1
             {
-                currentNodeIndex = pathNodes.Length - 1; // ล็อกให้ตำแหน่งสุดท้ายอยู่ที่บล็อกสุดท้าย
+                currentNodeIndex = 39; // ล็อกให้ตำแหน่งสุดท้ายอยู่ที่บล็อกสุดท้าย
                 Debug.Log("Player has reached the finish line!");
+
+                playerTurn.ShowWinMessage();
                 break; // หยุดการเดิน
             }
 
@@ -61,7 +69,7 @@ public class Playermovement1 : MonoBehaviour
                 }
             }
             isMoving = false; // หยุดเคลื่อนที่เมื่อถึงเป้าหมาย
-            Debug.Log("end" + currentNodeIndex);
+            // Debug.Log("end" + currentNodeIndex);
     }
 
     public IEnumerator MoveSteps(int stepsToMove)

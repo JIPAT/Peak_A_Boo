@@ -10,12 +10,14 @@ public class TurnManager : MonoBehaviour
     public EventManager eventManager;
     public Playermovement1 playermovement1; // ตัวแปรอ้างอิงถึง Player 2
     public Playermovement1 currentPlayer; // ผู้เล่นคนปัจจุบัน
+    public PlayerTurn playerTurn;
     public bool isDiceRolling = false; // เช็คว่ากำลังทอยลูกเต๋าหรือไม่
 
     private void Start()
     {
         playermovement1 = FindObjectOfType<Playermovement1>();
         eventManager = FindObjectOfType<EventManager>();
+        playerTurn = FindObjectOfType<PlayerTurn>();
         // ตรวจสอบว่าได้กำหนดค่าให้กับ player1, player2, dice แล้ว
         if (player1 == null || player2 == null || dice == null)
         {
@@ -55,6 +57,7 @@ public class TurnManager : MonoBehaviour
         if (IsEventTile(currentPlayer.currentNodeIndex))
         {
             Debug.Log($"Player landed on an Event Tile at Node {currentPlayer.currentNodeIndex}");
+            playerTurn.EventMessage();
             // เรียกใช้ TriggerEvent จาก EventManager
             yield return eventManager.StartCoroutine(eventManager.TriggerEvent(currentPlayer));
             currentPlayer.y = 2;
